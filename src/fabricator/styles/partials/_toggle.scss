@@ -1,0 +1,9 @@
+div[data-toggle="notes"] {
+  background: #F2F2F2;
+  margin: 1em 0;
+  padding: 1em;
+}
+
+div[data-toggle="notes"] > :first-child {
+  margin-top: 0;
+}
