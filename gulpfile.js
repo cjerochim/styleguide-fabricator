@@ -45,6 +45,7 @@ var config = {
 		materials: [
 			'components',
 			'structures',
+			'layouts',
 			'templates',
 			'documentation'
 		]

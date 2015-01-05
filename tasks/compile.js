@@ -10,6 +10,7 @@ var path = require('path');
 var Handlebars = require('handlebars');
 var through = require('through2');
 
+
 /**
  * Contents of data.json
  * @type {Object}
@@ -57,32 +58,48 @@ var assembleFabricator = function (file, enc, cb) {
 
 
 /**
+ * Inject body content into layout
+ * @param layout
+ * @param body
+ * @returns {XML|*|string|void}
+ */
+var injectBody = function (layout, body) {
+	return layout.replace(/\{{\s*body\s*}}/g, body);
+};
+
+
+
+/**
  * Assemble templates
  */
 var assembleTemplates = function (file, enc, cb) {
+
+	var source;
 
 	// augment data object
 	data.fabricator = false;
 
 	// use the filename as the key value lookup in the data.json object
 	var key = path.basename(file.path, '.hbs').replace(/-/g, '');
+	var pageMeta = data.templates[key].meta || data;
 
-	// define comment blocks to wrap the template code
-	var comments = {
-			start: '\n\n<!-- Start ' + data.templates[key].name + ' template -->\n\n',
-			end: '\n\n<!-- /End ' + data.templates[key].name + ' template -->\n\n'
-		};
+	//Todo - Check to ensure layout has been referenced. if not throw error
 
-	// concat file contents
-	var source = '{{> intro}}' +
-				comments.start +
-				data.templates[key].content +
-				comments.end +
-				'{{> outro}}';
+
+	if(pageMeta.layout) {
+		//Todo - Check to ensure there is a layout key if not throw error
+		var layoutRaw = data.layouts[pageMeta.layout].raw;
+		source = injectBody(layoutRaw, data.templates[key].content);
+	} else {
+		source = data.templates[key].content;
+	}
+
+	console.log(source);
 
 	// template
 	var template = Handlebars.compile(source),
-		html = template(data);
+		html = template(pageMeta);
+
 
 	// save as file buffer
 	file.contents = new Buffer(html);

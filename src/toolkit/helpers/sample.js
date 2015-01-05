@@ -15,7 +15,4 @@ module.exports.register = function(Handlebars) {
             return varRef;
         }
     });
-
-
-
 };

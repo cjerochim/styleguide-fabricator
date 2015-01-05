@@ -15,6 +15,7 @@ var junk = require('junk');
 var markdown = require('marked');
 var mkpath = require('mkpath');
 var path = require('path');
+var matter = require('gray-matter');
 
 
 
@@ -152,13 +153,18 @@ var parse = function (dir) {
 		}
 
 
+
+
+
 		try {
 
 			// compile templates
 			var content = fs.readFileSync('src/toolkit/' + dir + '/' + items[i] + '.hbs', 'utf8').replace(/(\s*(\r?\n|\r))+$/, '');
-			var template = Handlebars.compile(content);
+			var template = Handlebars.compile(matter(content).content);
 			item.raw = content;
 			item.content = beautifyHtml(template(), beautifyOptions);
+			item.meta = matter(content).data;
+
 
 			// register the helper
 			registerHelper(item);
