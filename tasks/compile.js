@@ -74,8 +74,6 @@ var injectBody = function (layout, body) {
  */
 var assembleTemplates = function (file, enc, cb) {
 
-	var source;
-
 	// augment data object
 	data.fabricator = false;
 
@@ -85,21 +83,17 @@ var assembleTemplates = function (file, enc, cb) {
 
 	//Todo - Check to ensure layout has been referenced. if not throw error
 
-
 	if(pageMeta.layout) {
 		//Todo - Check to ensure there is a layout key if not throw error
-		var layoutRaw = data.layouts[pageMeta.layout].raw;
-		source = injectBody(layoutRaw, data.templates[key].content);
+		var layoutRaw = data.layouts[pageMeta.layout].raw,
+			source = injectBody(layoutRaw, data.templates[key].content);
 	} else {
-		source = data.templates[key].content;
+		 throw new Error('Need to define a layout within the page e.g. \n---\nlayout: layoutname\n---');
 	}
-
-	console.log(source);
 
 	// template
 	var template = Handlebars.compile(source),
 		html = template(pageMeta);
-
 
 	// save as file buffer
 	file.contents = new Buffer(html);
