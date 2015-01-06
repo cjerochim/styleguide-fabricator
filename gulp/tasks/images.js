@@ -12,16 +12,15 @@ var gulp = require('gulp'),
 
 
 // images
-gulp.task('images', ['favicon'], function () {
-    return gulp.src(config.src.images)
+gulp.task('images', function () {
+    return gulp.src(config.src.images.input)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
         .pipe(imagemin())
-        .pipe(gulp.dest(config.dest + '/toolkit/images'));
+        .pipe(gulp.dest(config.src.images.output));
 });
 
 
-
-gulp.task('favicon', function () {
-    return gulp.src('./src/favicon.ico')
-        .pipe(gulp.dest(config.dest));
-});
+//gulp.task('favicon', function () {
+//    return gulp.src('./src/favicon.ico')
+//        .pipe(gulp.dest(config.dest));
+//});

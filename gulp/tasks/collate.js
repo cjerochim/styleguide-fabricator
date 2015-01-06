@@ -17,6 +17,7 @@ var mkpath = require('mkpath');
 var path = require('path');
 var matter = require('gray-matter');
 var glob = require('glob');
+var config = require('../config');
 
 /**
  * Compiled component/structure/etc data
@@ -75,11 +76,12 @@ var registerHelper = function (item) {
  */
 var registerCustomHelpers = function () {
 
-	var helpers = fs.readdirSync('src/toolkit/helpers/'),
+	var helpers = fs.readdirSync(config.src.assemble.helpers),
 		js;
 
 	for (var i = helpers.length - 1; i >= 0; i--) {
-		js = require('../../src/toolkit/helpers/' + helpers[i]);
+		//Todo - look at better approach to access helpers.
+		js = require('../.' + config.src.assemble.helpers + helpers[i]);
 		js.register(Handlebars);
 	}
 };
@@ -137,17 +139,15 @@ Handlebars.registerHelper('iterate', function (n, block) {
  * @param {Sting} dir The directory that contains .html and .md files to be parsed
  * @return {Function} A stream
  */
+	//Todo - review this entire function, not very scalable.
 var parse = function (dir) {
-
 
 	// create key if it doesn't exist
 	if (!data[dir]) {
 		data[dir] = {};
 	}
 
-
 	// get directory contents - parse sub-directories.
-	//var raw = fs.readdirSync('src/toolkit/' + dir ).filter(junk.not);
 	var raw = getFiles('src/toolkit/' + dir);
 
 	// create an array of file names

@@ -16,27 +16,26 @@ var gulp = require('gulp'),
 
 // styles
 gulp.task('styles:fabricator', function () {
-    return gulp.src(config.src.styles.fabricator)
+    return gulp.src(config.src.styles.fabricator.input)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
         .pipe(sass({
             errLogToConsole: true
         }))
         .pipe(prefix('last 1 version'))
         .pipe(gulpif(!config.dev, csso()))
-        .pipe(rename('f.css'))
-        .pipe(gulp.dest(config.dest + '/fabricator/styles'))
+        .pipe(gulp.dest(config.src.styles.fabricator.output))
         .pipe(gulpif(config.dev, reload({stream:true})));
 });
 
 gulp.task('styles:toolkit', function () {
-    return gulp.src(config.src.styles.toolkit)
+    return gulp.src(config.src.styles.toolkit.input)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
         .pipe(sass({
             errLogToConsole: true
         }))
         .pipe(prefix('last 1 version'))
         .pipe(gulpif(!config.dev, csso()))
-        .pipe(gulp.dest(config.dest + '/toolkit/styles'))
+        .pipe(gulp.dest(config.src.styles.toolkit.output))
         .pipe(gulpif(config.dev, reload({stream:true})));
 });
 
