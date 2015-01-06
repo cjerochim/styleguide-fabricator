@@ -45,6 +45,7 @@
     "gulp-csso": "^0.2.9",
     "gulp-if": "~1.2.2",
     "gulp-imagemin": "^1.0.1",
+    "gulp-notify": "^2.1.0",
     "gulp-plumber": "^0.6.5",
     "gulp-rename": "~1.2.0",
     "gulp-sass": "^0.7.3",
@@ -59,6 +60,7 @@
     "mkdirp": "~0.5.0",
     "mkpath": "~0.1.0",
     "q": "~1.0.1",
+    "require-dir": "^0.1.0",
     "through2": "~0.5.1",
     "vinyl-map": "~1.0.1",
     "vinyl-source-stream": "~0.1.1"

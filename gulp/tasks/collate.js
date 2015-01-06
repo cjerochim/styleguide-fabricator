@@ -79,7 +79,7 @@ var registerCustomHelpers = function () {
 		js;
 
 	for (var i = helpers.length - 1; i >= 0; i--) {
-		js = require('../src/toolkit/helpers/' + helpers[i]);
+		js = require('../../src/toolkit/helpers/' + helpers[i]);
 		js.register(Handlebars);
 	}
 };
