@@ -8,7 +8,8 @@ module.exports = {
             //Todo - change reference location - bower can be used for css too.
             bower: {
                 input: './bower_components',
-                output: './public/toolkit/lib/'
+                output: './public/toolkit/lib/',
+                package: './package/scripts/lib'
             },
             fabricator: {
                 input: [
@@ -22,6 +23,7 @@ module.exports = {
             toolkit: {
                 input: './src/toolkit/assets/scripts/toolkit.js',
                 output: './public/toolkit/scripts/',
+                package: './package/scripts/',
                 fileName: 'toolkit.js'
             }
         },
@@ -32,9 +34,11 @@ module.exports = {
             },
             toolkit: {
                 input: './src/toolkit/assets/styles/**/*.scss',
-                output: './public/toolkit/styles/'
+                output: './public/toolkit/styles/',
+                package: './package/styles/'
             }
         },
+
         //Note - any changes to the location of './src/toolkit' will break, need to update manually in 'collate.js' within the parse function
         assemble: {
             data: './public/fabricator/data/data.json',
@@ -57,9 +61,20 @@ module.exports = {
         },
         images: {
             input: 'src/toolkit/assets/images/**/*',
-            output: './public/toolkit/images/'
+            output: './public/toolkit/images/',
+            package: './package/images/'
         }
     },
-    clean: './public/'
+    banner: ['/**',
+        ' * <%= pkg.name %>',
+        ' * @version v<%= pkg.version %>',
+        ' */',
+        ''].join('\n'),
+
+    //Todo - write conditionals
+    clean: {
+        dev: './public/',
+        package: './package/'
+    }
 };
 

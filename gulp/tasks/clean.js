@@ -11,6 +11,10 @@ var gulp = require('gulp'),
 
 
 // clean
-gulp.task('clean', function (cb) {
-    del([config.clean], cb);
+gulp.task('clean:dev', function (cb) {
+    del([config.clean.dev], cb);
+});
+
+gulp.task('clean:package', function(cb) {
+    del([config.clean.package], cb)
 });

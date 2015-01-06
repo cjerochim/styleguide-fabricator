@@ -1,16 +1,20 @@
 'use strict';
 
+/**
+ * Dependencies
+ * @type {Gulp|exports}
+ */
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     prefix = require('gulp-autoprefixer'),
     gulpif = require('gulp-if'),
-    rename = require('gulp-rename'),
     plumber = require('gulp-plumber'),
-    csso = require('gulp-csso'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
+    header = require('gulp-header'),
     config = require('../config'),
-    utility = require('../utility');
+    utility = require('../utility'),
+    pkg = require('../../package.json');
 
 
 
@@ -22,7 +26,6 @@ gulp.task('styles:fabricator', function () {
             errLogToConsole: true
         }))
         .pipe(prefix('last 1 version'))
-        .pipe(gulpif(!config.dev, csso()))
         .pipe(gulp.dest(config.src.styles.fabricator.output))
         .pipe(gulpif(config.dev, reload({stream:true})));
 });
@@ -34,8 +37,13 @@ gulp.task('styles:toolkit', function () {
             errLogToConsole: true
         }))
         .pipe(prefix('last 1 version'))
-        .pipe(gulpif(!config.dev, csso()))
-        .pipe(gulp.dest(config.src.styles.toolkit.output))
+        .pipe(header(config.banner, {pkg: pkg} ))
+        .pipe(gulpif(config.dev,
+            //Development output
+            gulp.dest(config.src.styles.toolkit.output),
+            //Production output.
+            gulp.dest(config.src.styles.toolkit.package)
+        ))
         .pipe(gulpif(config.dev, reload({stream:true})));
 });
 
