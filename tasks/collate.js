@@ -16,8 +16,7 @@ var markdown = require('marked');
 var mkpath = require('mkpath');
 var path = require('path');
 var matter = require('gray-matter');
-
-
+var glob = require('glob');
 
 /**
  * Compiled component/structure/etc data
@@ -90,6 +89,30 @@ var registerCustomHelpers = function () {
 registerCustomHelpers();
 
 
+/**
+ * Leverage current fs.readdirSync to read sub-dirs.
+ * @param dir
+ * @param files_
+ * @returns {*|Array}
+ */
+var  getFiles = function(dir, files_){
+	files_ = files_ || [];
+	if (typeof files_ === 'undefined') files_=[];
+	var files = fs.readdirSync(dir).filter(junk.not);
+	for(var i in files){
+		if (!files.hasOwnProperty(i)) continue;
+		var name = dir+'/'+files[i];
+		//var name = files[i];
+		if (fs.statSync(name).isDirectory()){
+			getFiles(name,files_);
+		} else {
+			files_.push(files[i]);
+		}
+	}
+	return files_;
+};
+
+
 
 
 /**
@@ -116,13 +139,16 @@ Handlebars.registerHelper('iterate', function (n, block) {
  */
 var parse = function (dir) {
 
+
 	// create key if it doesn't exist
 	if (!data[dir]) {
 		data[dir] = {};
 	}
 
-	// get directory contents
-	var raw = fs.readdirSync('src/toolkit/' + dir).filter(junk.not);
+
+	// get directory contents - parse sub-directories.
+	//var raw = fs.readdirSync('src/toolkit/' + dir ).filter(junk.not);
+	var raw = getFiles('src/toolkit/' + dir);
 
 	// create an array of file names
 	var fileNames = raw.map(function (e, i) {
@@ -133,6 +159,8 @@ var parse = function (dir) {
 	var items = fileNames.filter(function (e, i, a) {
 		return a.indexOf(e) === i;
 	});
+
+
 
 	// iterate over each item, parse, add to item object
 	for (var i = 0, length = items.length; i < length; i++) {
@@ -145,7 +173,7 @@ var parse = function (dir) {
 
 		//Apply aditional properties for search
 		if(dir === 'templates') {
-			item.url = 'template-' + item.id + '.html'
+			item.url = 'template-' + item.id + '.html';
 			item.target = '_blank';
 		} else {
 			item.url = dir + '.html#' + item.id;
@@ -158,13 +186,17 @@ var parse = function (dir) {
 
 		try {
 
+
+			// Find all elements in sub folders and return url. Not ideal but works, based on the current structure.
+			var itemLocation  = glob.sync('src/toolkit/' + dir + '/**/' + items[i] + '.hbs');
+
 			// compile templates
-			var content = fs.readFileSync('src/toolkit/' + dir + '/' + items[i] + '.hbs', 'utf8').replace(/(\s*(\r?\n|\r))+$/, '');
+			var content = fs.readFileSync(itemLocation[0], 'utf8').replace(/(\s*(\r?\n|\r))+$/, '');
+
 			var template = Handlebars.compile(matter(content).content);
 			item.raw = content;
 			item.content = beautifyHtml(template(), beautifyOptions);
 			item.meta = matter(content).data;
-
 
 			// register the helper
 			registerHelper(item);
@@ -178,6 +210,8 @@ var parse = function (dir) {
 
 		data[dir][item.id.replace(/-/g, '')] = item;
 	}
+
+
 
 };
 

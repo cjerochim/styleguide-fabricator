@@ -198,6 +198,7 @@ gulp.task('build', ['clean'], function () {
 });
 
 
+//Todo - review browser sync - not working.
 // server
 gulp.task('browser-sync', function () {
 	browserSync({

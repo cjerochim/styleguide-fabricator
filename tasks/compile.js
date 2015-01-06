@@ -41,6 +41,7 @@ var assembleFabricator = function (file, enc, cb) {
 	// augment data object
 	data.fabricator = true;
 
+
 	// template pages
 	var source = file.contents.toString(),
 		template = Handlebars.compile(source),
@@ -81,10 +82,8 @@ var assembleTemplates = function (file, enc, cb) {
 	var key = path.basename(file.path, '.hbs').replace(/-/g, '');
 	var pageMeta = data.templates[key].meta || data;
 
-	//Todo - Check to ensure layout has been referenced. if not throw error
-
+	//Check to ensure there is a reference for layout if not, throw an error.
 	if(pageMeta.layout) {
-		//Todo - Check to ensure there is a layout key if not throw error
 		var layoutRaw = data.layouts[pageMeta.layout].raw,
 			source = injectBody(layoutRaw, data.templates[key].content);
 	} else {
