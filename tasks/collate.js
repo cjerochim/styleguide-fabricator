@@ -182,10 +182,7 @@ var parse = function (dir) {
 
 
 
-
-
 		try {
-
 
 			// Find all elements in sub folders and return url. Not ideal but works, based on the current structure.
 			var itemLocation  = glob.sync('src/toolkit/' + dir + '/**/' + items[i] + '.hbs');

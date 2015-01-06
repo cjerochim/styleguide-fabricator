@@ -80,7 +80,7 @@ var assembleTemplates = function (file, enc, cb) {
 
 	// use the filename as the key value lookup in the data.json object
 	var key = path.basename(file.path, '.hbs').replace(/-/g, '');
-	var pageMeta = data.templates[key].meta || data;
+	var pageMeta = data.templates[key].meta || {};
 
 	//Check to ensure there is a reference for layout if not, throw an error.
 	if(pageMeta.layout) {
