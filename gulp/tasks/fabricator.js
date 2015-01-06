@@ -53,6 +53,7 @@ gulp.task('assemble:fabricator', function () {
             extname: '.html'
         }))
         .pipe(gulp.dest(config.dest))
+        .pipe(browserSync.reload({stream:true}))
         .pipe(notify({
             title: 'Assemble:Fabricator',
             message: '✔ Components,Structures are complete.',

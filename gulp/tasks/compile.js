@@ -47,6 +47,7 @@ var assembleFabricator = function (file, enc, cb) {
 		template = Handlebars.compile(source),
 		html = template(data);
 
+	console.log(source);
 
 	// save as file buffer
 	file.contents = new Buffer(html);

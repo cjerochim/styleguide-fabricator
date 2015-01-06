@@ -7,6 +7,7 @@
 var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     utility = require('../utility'),
+    plumber = require('gulp-plumber'),
     config = require('../config');
 
 

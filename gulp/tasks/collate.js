@@ -201,8 +201,13 @@ var parse = function (dir) {
 		} catch (e) {}
 
 		try {
-			var notes = fs.readFileSync('src/toolkit/' + dir + '/' + items[i] + '.md', 'utf8');
+			// Find all elements in sub folders and return url. Not ideal but works, based on the current structure.
+			var itemNoteLocation  = glob.sync('src/toolkit/' + dir + '/**/' + items[i] + '.md');
+
+			var notes = fs.readFileSync(itemNoteLocation[0], 'utf8');
 			item.notes = markdown(notes);
+
+
 		} catch (e) {}
 
 		data[dir][item.id.replace(/-/g, '')] = item;
