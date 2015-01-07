@@ -25,13 +25,12 @@
 
     <div class="f-search" data-f-search data-ng-app="fApp">
 
-
         <div class="f-search-container">
-            <label for="search">Search</label>
-            <input type="text" id="search" data-ng-model="searchModel" name="search"/>
+            <label class="f-search-label" for="f-search">Search</label>
+            <input class="f-search-input" type="text" id="f-search" data-ng-model="searchModel" name="search"/>
         </div>
         <div class="f-search-results">
-			<ul>
+			<ul class="f-search-results-list">
 				<li class="f-search-repeat" data-ng-repeat="item in collection | emptyifblank: searchModel | filter: searchModel | limitTo: 5">
 					<a data-ng-href="[[item.url]]" data-ng-bind="item.name" target="[[item.target]]"></a>
 				</li>
