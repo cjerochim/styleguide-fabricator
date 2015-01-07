@@ -6,7 +6,7 @@
  */
 var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
-    transform = require('vinyl-transform'),
+    source = require('vinyl-source-stream'),
     gulpif = require('gulp-if'),
     concat = require('gulp-concat'),
     bower = require('main-bower-files'),
@@ -28,16 +28,9 @@ gulp.task('scripts:fabricator', function () {
 });
 
 gulp.task('scripts:toolkit', function () {
-
-    var browserified = transform(function (filename) {
-        var b = browserify(filename);
-        return b.bundle();
-    });
-
-    return gulp.src([config.src.scripts.toolkit.input])
-        .pipe(browserified)
+    return browserify(config.src.scripts.toolkit.input).bundle()
         .pipe(plumber({ errorHandler: utility.errorHandler }))
-        .pipe(concat(config.src.scripts.toolkit.fileName))
+        .pipe(source(config.src.scripts.toolkit.fileName))
         .pipe(header(config.banner, {pkg: pkg} ))
         .pipe(gulpif(config.dev,
             //Output to development
@@ -45,6 +38,7 @@ gulp.task('scripts:toolkit', function () {
             //Output to package
             gulp.dest(config.src.scripts.toolkit.package)
         ));
+
     //.pipe(gulp.dest(config.src.scripts.toolkit.output));
     //Todo - add notifications with conditionals for prod vs package
 });

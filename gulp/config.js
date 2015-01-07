@@ -21,7 +21,7 @@ module.exports = {
                 fileName: 'f.js'
             },
             toolkit: {
-                input: './src/toolkit/assets/scripts/**/*.js',
+                input: './src/toolkit/assets/scripts/toolkit.js',
                 output: './public/toolkit/scripts/',
                 package: './package/scripts/',
                 fileName: 'toolkit.js'
