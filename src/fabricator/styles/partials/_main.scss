@@ -10,14 +10,28 @@ html {
 }
 
 body {
+
+	background-color: white;
+	color: #222;
 	margin: 0;
 	min-height: 100%;
+
 	@media (max-width: 60em) {
 		.state--menu-active & {
 			width: 100%;
 			height: 100%;
 		}
 	}
+}
+
+.layout-fabricator {
+	background-color: white;
+}
+
+// used on sample pages
+.f-main-container {
+	background-color: #fff;
+	padding: 1em;
 }
 
 .f-container {
@@ -44,4 +58,27 @@ body {
 	@include borderBox;
 	padding: 1em;
 	min-height: 100%;
+}
+
+.f-inverted {
+	background-color: black;
+	color: white;
+	padding: 1em;
+	margin: 0 -1em;
+}
+
+.f-section-tag {
+	background-color: red;
+	color: white;
+	display:inline-block;
+	font-size: .9em;
+	margin: 2em 0 2em -1em;
+	padding: 0.35em 1em;
+	text-transform: uppercase;
+}
+
+.f-section {
+	font-size: .9em;
+	margin-top: 1.625em;
+	text-transform: uppercase;
 }

@@ -50,7 +50,8 @@ if (fabricator.test.localStorage) {
 fabricator.dom = {
 	primaryMenu: document.querySelector('.f-menu'),
 	menuItems: document.querySelectorAll('.f-menu .f-menu-list li a'),
-	menuToggle: document.querySelector('.f-menu-toggle')
+	menuToggle: document.querySelector('.f-menu-toggle'),
+	sections: document.querySelectorAll('.f-item-group')
 };
 
 
@@ -109,29 +110,34 @@ fabricator.setActiveItem = function () {
 
 	};
 
-
 	/**
 	 * Match the 'id' in the window location with the menu item, set menu item as active
 	 */
 	var setActive = function () {
 
 		var href = window.location.href,
+			sections = fabricator.dom.sections,
 			items = parsedItems(),
 			id, index;
-
-
 
 		// get window 'id'
 		if (href.indexOf('#') > -1) {
 			id = window.location.hash.replace('#', '');
+
+			// Hide sections
+			for( var i = 0; i<sections.length; i++) {
+				sections[i].classList.add('f-item-hidden');
+			}
+
+			// Show selected section
+			document.getElementById(id).classList.remove('f-item-hidden');
+
 		} else {
 			id = window.location.pathname.split('/').pop().replace(/\.[^/.]+$/, '');
 		}
 
 		// find the window id in the items array
 		index = (items.indexOf(id) > -1) ? items.indexOf(id) : 0;
-
-
 
 		// set the matched item as active
 		fabricator.dom.menuItems[index].classList.add('f-active');

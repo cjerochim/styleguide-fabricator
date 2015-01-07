@@ -1,11 +1,12 @@
 .f-color-chip {
 	padding: 1em;
-	min-width: 9em;
-	border-top-width: 9em;
+	min-width: 14em;
+	border-top-width: 8em;
 	border-top-style: solid;
 	border-bottom-width: 0.5em;
 	border-bottom-style: solid;
 	background-color: #fff;
+	box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
 	font-weight: 700;
 	font-size: 0.75em;
 	display: inline-block;
@@ -18,7 +19,14 @@
 	}
 }
 
+.f-color-chip__var {
+	font-family: monospace;
+	padding: .2em 0;
+	color: #333;
+	font-weight: normal;
+}
+
 .f-color-chip--primary {
-	width: 12em;
-	border-top-width: 13em;
+	width: 18em;
+	border-top-width: 12em;
 }

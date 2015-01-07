@@ -59,10 +59,20 @@ module.exports = {
                 output: './public/'
             }
         },
+        fonts: {
+            input: 'src/toolkit/assets/fonts/**/*',
+            output: './public/toolkit/fonts/',
+            package: './package/fonts/'
+        },
         images: {
             input: 'src/toolkit/assets/images/**/*',
             output: './public/toolkit/images/',
             package: './package/images/'
+        },
+        vendors: {
+            input: 'src/toolkit/assets/vendors/**/*',
+            output: './public/toolkit/vendors/',
+            package: './package/vendors/'
         }
     },
     banner: ['/**',

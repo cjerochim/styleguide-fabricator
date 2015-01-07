@@ -22,7 +22,7 @@
 	ul {
 		margin-top: 0;
 		margin-bottom: 0;
-		padding-left: 0;
+		padding: 0;
 	}
 	> ul {
 		margin-bottom: 0;
@@ -32,29 +32,30 @@
 		margin-top: 0;
 		margin-bottom: 0;
 	}
-	a {
+	.f-menu__heading, a {
 		display: block;
-		padding: 0.875em 3em;
+		padding: 0.875em 1em;
 		color: $color--menu-item-text !important;
 		text-decoration: none;
 		font-size: 0.75em;
 		font-weight: 200;
 		line-height: 1;
 		transition: (background-color 200ms);
-		&:hover {
-			background-color: $color--menu-item-hover;
-			text-decoration: none;
-		}
 		&.f-active {
 			background-color: $color--menu-item-hover;
 			box-shadow: inset 3px 0 0 $color--accent;
 		}
 	}
 	.f-menu__heading {
-		padding-left: 2em;
 		color: $color--menu-heading-text !important;
 		&:hover {
 			color: $color--menu-item-text;
+		}
+	}
+	a {
+		&:hover {
+			background-color: $color--menu-item-hover;
+			text-decoration: none;
 		}
 	}
 }
