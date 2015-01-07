@@ -53,9 +53,29 @@
 		}
 	}
 	a {
+
+		.f-icon {
+			float: right;
+		}
+
+		svg {
+			width: 1em;
+			height: 1em;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		use {
+			fill: $color--menu-heading-text;
+		}
+
 		&:hover {
 			background-color: $color--menu-item-hover;
 			text-decoration: none;
+
+			use {
+				fill: white;
+			}
 		}
 	}
 }
