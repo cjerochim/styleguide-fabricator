@@ -85,6 +85,9 @@ module.exports = {
     clean: {
         dev: './public/',
         package: './package/'
+    },
+    browserSync: {
+        input: './public'
     }
 };
 
