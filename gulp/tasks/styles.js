@@ -6,6 +6,7 @@
  */
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
+    bourbon = require('node-bourbon'),
     prefix = require('gulp-autoprefixer'),
     gulpif = require('gulp-if'),
     plumber = require('gulp-plumber'),
@@ -23,7 +24,8 @@ gulp.task('styles:fabricator', function () {
     return gulp.src(config.src.styles.fabricator.input)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
         .pipe(sass({
-            errLogToConsole: true
+            errLogToConsole: true,
+            includePaths: bourbon.includePaths
         }))
         .pipe(prefix('last 1 version'))
         .pipe(gulp.dest(config.src.styles.fabricator.output))
@@ -34,7 +36,8 @@ gulp.task('styles:toolkit', function () {
     return gulp.src(config.src.styles.toolkit.input)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
         .pipe(sass({
-            errLogToConsole: true
+            errLogToConsole: true,
+            includePaths: bourbon.includePaths
         }))
         .pipe(prefix('last 1 version'))
         .pipe(header(config.banner, {pkg: pkg} ))

@@ -1,7 +1,7 @@
 .f-search {
 	position: relative;
 	display: block;
-	padding: 0.5em 1em;
+	padding: 0.5em;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 
 	label {
@@ -11,7 +11,8 @@
 	input.f-search-input {
 		position: relative;
 		display: block;
-		width: 16em;
+		width: 90%;
+		margin: 0 auto;
 		padding: 0.5em;
 		font-size: 13px;
 	}
@@ -32,7 +33,7 @@
 	}
 
 	a {
-		padding-left: 0.3em;
+		padding: 0.875em 1em;
 		color: #F2F2F2;
 		text-transform: capitalize;
 	}

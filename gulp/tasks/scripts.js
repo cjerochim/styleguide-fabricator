@@ -39,7 +39,7 @@ gulp.task('scripts:toolkit', function () {
             gulp.dest(config.src.scripts.toolkit.package)
         ));
 
-        //.pipe(gulp.dest(config.src.scripts.toolkit.output));
+    //.pipe(gulp.dest(config.src.scripts.toolkit.output));
     //Todo - add notifications with conditionals for prod vs package
 });
 
@@ -55,8 +55,8 @@ gulp.task('scripts:bower', function() {
             //Output to package
             gulp.dest(config.src.scripts.bower.package)
         ));
-        //.pipe(gulp.dest(config.src.scripts.bower.output));
-        //Todo - Add notifications for prod vs package.
+    //.pipe(gulp.dest(config.src.scripts.bower.output));
+    //Todo - Add notifications for prod vs package.
 });
 
 gulp.task('scripts', ['scripts:fabricator', 'scripts:toolkit', 'scripts:bower']);
