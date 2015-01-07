@@ -6,7 +6,7 @@
  */
 var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
-    source = require('vinyl-source-stream'),
+    transform = require('vinyl-transform'),
     gulpif = require('gulp-if'),
     concat = require('gulp-concat'),
     bower = require('main-bower-files'),
@@ -28,9 +28,16 @@ gulp.task('scripts:fabricator', function () {
 });
 
 gulp.task('scripts:toolkit', function () {
-    return browserify(config.src.scripts.toolkit.input).bundle()
+
+    var browserified = transform(function (filename) {
+        var b = browserify(filename);
+        return b.bundle();
+    });
+
+    return gulp.src([config.src.scripts.toolkit.input])
+        .pipe(browserified)
         .pipe(plumber({ errorHandler: utility.errorHandler }))
-        .pipe(source(config.src.scripts.toolkit.fileName))
+        .pipe(concat(config.src.scripts.toolkit.fileName))
         .pipe(header(config.banner, {pkg: pkg} ))
         .pipe(gulpif(config.dev,
             //Output to development
@@ -38,8 +45,7 @@ gulp.task('scripts:toolkit', function () {
             //Output to package
             gulp.dest(config.src.scripts.toolkit.package)
         ));
-
-        //.pipe(gulp.dest(config.src.scripts.toolkit.output));
+    //.pipe(gulp.dest(config.src.scripts.toolkit.output));
     //Todo - add notifications with conditionals for prod vs package
 });
 
@@ -55,8 +61,8 @@ gulp.task('scripts:bower', function() {
             //Output to package
             gulp.dest(config.src.scripts.bower.package)
         ));
-        //.pipe(gulp.dest(config.src.scripts.bower.output));
-        //Todo - Add notifications for prod vs package.
+    //.pipe(gulp.dest(config.src.scripts.bower.output));
+    //Todo - Add notifications for prod vs package.
 });
 
 gulp.task('scripts', ['scripts:fabricator', 'scripts:toolkit', 'scripts:bower']);
