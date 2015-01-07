@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
         server: {
-            baseDir: config.dest
+            baseDir: config.browserSync.input
         },
         notify: true
     });
