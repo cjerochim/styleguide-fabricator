@@ -1,0 +1,47 @@
+// Media Query Breakpoints...
+@mixin breakpoint($point:xs, $width: min) {
+  @each $breakpoint in map-keys($base-breakpoints) {
+    $bp: map-get($base-breakpoints, $breakpoint);
+    @if $point == $breakpoint {
+      @if $width == min {
+        @media (min-width: $bp) {
+          @content;
+        }
+      }
+      @else if $width == max {
+        @media (max-width: $bp - 1px) {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ Progressively updates based with mobile first in mind.
+**/
+@mixin breakpointEQ($point:xs) {
+  @if $point == xs {
+    &[data-eq-state="xs"],  &[data-eq-state="sm"],  &[data-eq-state="md"],  &[data-eq-state="lg"] {
+      @content;
+    }
+  }
+  @else if $point == sm {
+    &[data-eq-state="sm"],  &[data-eq-state="md"],  &[data-eq-state="lg"] {
+      @content;
+    }
+  }
+  @else if $point == md {
+    &[data-eq-state="md"],  &[data-eq-state="lg"] {
+      @content;
+    }
+  }
+  @else if $point == lg {
+    &[data-eq-state="lg"] {
+      @content;
+    }
+  }
+}
+
+
