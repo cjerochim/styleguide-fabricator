@@ -9,6 +9,8 @@ var gulp = require('gulp'),
 
 
 
+gulp.task('default', ['build', 'host']);
+
 // build
 gulp.task('build', ['clean:dev'], function () {
     config.dev = true;

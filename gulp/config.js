@@ -9,7 +9,7 @@ module.exports = {
             bower: {
                 input: './bower_components',
                 output: './public/toolkit/lib/',
-                package: './package/scripts/lib'
+                package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/js/vendors/'
             },
             fabricator: {
                 input: [
@@ -23,8 +23,8 @@ module.exports = {
             toolkit: {
                 input: './src/toolkit/assets/scripts/toolkit.js',
                 output: './public/toolkit/scripts/',
-                package: './package/scripts/',
-                fileName: 'toolkit.js'
+                package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/js/',
+                fileName: 'main.js'
             }
         },
         styles: {
@@ -35,7 +35,7 @@ module.exports = {
             toolkit: {
                 input: './src/toolkit/assets/styles/**/*.scss',
                 output: './public/toolkit/styles/',
-                package: './package/styles/'
+                package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/css/'
             }
         },
 
@@ -62,17 +62,17 @@ module.exports = {
         fonts: {
             input: 'src/toolkit/assets/fonts/**/*',
             output: './public/toolkit/fonts/',
-            package: './package/fonts/'
+            package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/fonts/'
         },
         images: {
             input: 'src/toolkit/assets/images/**/*',
             output: './public/toolkit/images/',
-            package: './package/images/'
+            package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/images/'
         },
         vendors: {
             input: 'src/toolkit/assets/vendors/**/*',
             output: './public/toolkit/vendors/',
-            package: './package/vendors/'
+            package: './package/Volumes/inetpub/npbs/styleguide.npbs.dev/js/vendors/'
         }
     },
     banner: ['/**',
@@ -88,6 +88,17 @@ module.exports = {
     },
     browserSync: {
         input: './public'
+    },
+    release: {
+        git: {
+            stream: 'origin',
+            branch: 'develop'
+        }
+    },
+    slack: {
+        token: '',
+        team: '',
+        channel: '',
+        icon_emoji: ':bowtie:'
     }
 };
-
